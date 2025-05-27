@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MUST Report Faulty Infrastructure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align: center; padding: 2px auto;">Mbeya University of Science and Technology Report Fault Management system</h1>
+    <form id="reportForm">
+      <input type="text" name="title" placeholder="Fault Observed" required><br>
+      <textarea name="description" placeholder="Description" required></textarea><br>
+      <input type="text" name="location" placeholder="Location/Venue" required><br>
+      <button type="submit">Submit</button>
+       
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    // if(clicksubmitbutton || fillform){
+    //       document.getElementById("message").innerText = "Submitted successful.";
+  
+    // }
+    document.getElementById("reportForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch("submit.php", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("message").innerText = data;
+        this.reset();
+      })
+      .catch(err => {
+        document.getElementById("message").innerText = "Error submitting report.";
+      });
+    });
+  </script>
+      
+
+</body>
+</html>
