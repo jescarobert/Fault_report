@@ -42,7 +42,7 @@ app.get('/admin-dashboard', (req, res) => {
     rows.forEach(row => {
       html += `<li><a href="/fault/${row.id}">${row.fault_title} at ${row.location}</a></li>`;
     });
-    html += `</ul><a href="/index">Logout</a>`;
+    html += `</ul><a href="/admin">Logout</a>`;
     res.send(html);
   });
 });
