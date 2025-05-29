@@ -38,12 +38,48 @@ app.post('/admin-login', (req, res) => {
 app.get('/admin-dashboard', (req, res) => {
   if (!req.session.admin) return res.redirect('/admin');
   db.all(`SELECT * FROM faults`, (err, rows) => {
-    let html = `<h1>Reported Faults</h1><ul>`;
-    rows.forEach(row => {
-      html += `<li><a href="/fault/${row.id}">${row.fault_title} at ${row.location}</a></li>`;
-    });
-    html += `</ul><a href="/admin">Logout</a>`;
-    res.send(html);
+ let html = `
+  <html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <h1>Reported Faults</h1>
+    <table>
+      <tr><th>ID</th><th>Title</th><th>Location</th><th>Date/Time</th><th>Action</th></tr>`;
+rows.forEach(row => {
+  html += `<tr>
+    <td>${row.id}</td>
+    <td>${row.fault_title}</td>
+    <td>${row.location}</td>
+    <td>${row.datetime}</td>
+    <td><a href="/fault/${row.id}">View</a></td>
+  </tr>`;
+});
+html += `</table><br><a href="/admin">Logout</a>
+  </body>
+  </html>`;
+
+
+    res.send(`
+  <html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Fault Detail</title>
+  </head>
+  <body>
+    <h2>${row.fault_title}</h2>
+    <table>
+      <tr><th>Description</th><td>${row.description}</td></tr>
+      <tr><th>Location</th><td>${row.location}</td></tr>
+      <tr><th>Date/Time</th><td>${row.datetime}</td></tr>
+    </table>
+    <br><a href="/admin-dashboard">← Back to Dashboard</a>
+  </body>
+  </html>
+`);
+
   });
 });
 
