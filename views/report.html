@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Report Fault</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+  <h1>Report Infrastructure Fault</h1>
+  <form method="POST" action="/report">
+    <input name="fault_title" placeholder="Fault Title" required><br>
+    <textarea name="description" placeholder="Description" required></textarea><br>
+    <input name="location" placeholder="Location/Venue" required><br>
+    <input type="datetime-local" name="datetime" required><br>
+    <button type="submit">Submit Report</button>
+  </form>
+</body>
+</html>
