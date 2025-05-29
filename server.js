@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(session({ secret: 'demo-secret', resave: false, saveUninitialized: true }));
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'report.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'index.html')));
+app.get('/report', (req, res) => res.sendFile(path.join(__dirname, 'views', 'report.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'views', 'admin_login.html')));
 
 app.post('/report', (req, res) => {
